@@ -1,0 +1,9 @@
+env
+.terraform
+.terraform.lock.hcl
+.env
+.idea
+terraform.tfstate
+terraform.tfstate.bac
+terraform.tfstate.backup
+test.py
