@@ -7,7 +7,6 @@ from datetime import datetime, timedelta
 import logging
 from pydantic import BaseModel
 from aiokafka import AIOKafkaProducer
-# import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
@@ -59,10 +58,6 @@ class MarketDataStream:
 
     def setup_driver(self):
         """Initialize Selenium WebDriver with Chrome options"""
-        # chrome_options = Options()
-        # chrome_options.add_argument("--headless")  # Run in headless mode
-        # chrome_options.add_argument("--no-sandbox")
-        # chrome_options.add_argument("--disable-dev-shm-usage")
         
         self.driver = webdriver.Chrome()
         self.driver.implicitly_wait(10)

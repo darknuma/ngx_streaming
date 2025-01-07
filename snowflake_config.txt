@@ -1,0 +1,38 @@
+USE ROLE ACCOUNTADMIN;
+
+
+-- create database
+CREATE DATABASE IF NOT EXISTS ngx_streams;
+create schema if not exists ngx_streams.marketing_schema;
+
+USE ROLE securityadmin;
+
+CREATE USER IF NOT EXISTS kafka_connector_user;
+
+
+create role kafka_connector_role;
+
+-- grant prvileges on the database
+GRANT USAGE ON DATABASE ngx_streams TO ROLE kafka_connector_role;
+
+
+USE DATABASE ngx_streams;
+
+-- Grant privileges on the schema
+GRANT USAGE ON SCHEMA ngx_streams.marketing_schema TO ROLE kafka_connector_role;
+GRANT CREATE TABLE ON SCHEMA ngx_streams.marketing_schema TO ROLE kafka_connector_role;
+GRANT CREATE STAGE ON SCHEMA ngx_streams.marketing_schema TO ROLE kafka_connector_role;
+GRANT CREATE PIPE ON SCHEMA ngx_streams.marketing_schema TO ROLE kafka_connector_role;
+
+-- Only required if the Kafka connector will load data into an existing table.
+GRANT OWNERSHIP ON TABLE existing_table1 TO ROLE kafka_connector_role;
+
+-- Only required if the Kafka connector will stage data files in an existing internal stage: (not recommended).
+GRANT READ, WRITE ON STAGE existing_stage1 TO ROLE kafka_connector_role;
+
+-- Grant the custom role to an existing user.
+GRANT ROLE kafka_connector_role TO USER kafka_connector_user;
+
+-- Set the custom role as the default role for the user.
+-- If you encounter an 'Insufficient privileges' error, verify the role that has the OWNERSHIP privilege on the user.
+ALTER USER kafka_connector_user SET DEFAULT_ROLE = kafka_connector_role;
