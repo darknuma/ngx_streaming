@@ -2,6 +2,8 @@
 
 The goal was to stream the market data statistics in Nigeria Stock Exchange market, this is a batch run for 30 minutes, followin each weekday the stock market is running
 
+For this project I ran locally. I used prefect to stream directly to snowflake using Snowpipe streaming, and with mage_ai, I basically loaded my stream to Amazon S3 sink
+
 ## PROJECT SETUP
 - `src`
 - `prefect`
