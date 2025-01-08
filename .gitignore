@@ -8,3 +8,9 @@ terraform.tfstate.bac
 terraform.tfstate.backup
 test.py
 __pycache__
+__init__.py
+io.config.yaml
+.ssh_tunnerl
+custom
+custom_templates
+
