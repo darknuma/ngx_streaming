@@ -9,8 +9,11 @@ terraform.tfstate.backup
 test.py
 __pycache__
 __init__.py
-io.config.yaml
-.ssh_tunnerl
-custom
-custom_templates
-
+mage_ai/ngx/io_config.yaml
+mage_ai/ngx/.ssh_tunnel
+mage_ai/ngx/custom
+mage_ai/ngx/custom_templates
+io
+mage_ai/ngx/dbt
+mage_ai/ngx/extensions
+mage_ai/ngx/interactions

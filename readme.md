@@ -15,31 +15,33 @@ I used the WSL:Ubuntu as my development environment (local)
 
 
 
-
 ## HOW TO RUN
 
-- Run local job
+- **Run local job**
+   - Start zookeeper and kafka, create your topic
 ```
 pip install -r requirement.txt
+/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic ngx-market-data 
 cd src
-python3 scrape_stream.py (to run loc)
+python3 scrape_stream.py
 ```
-- Run with Prefect 
+- **Run with Prefect** 
    - Start the server
    - create your workpool
    - deploy your code
+   - you can set the schedule on the UI, which I did with `*/30 9-13 * * 1-5`
 ```
 prefect start server
-prefect workpool - [workpoolname]
-python 
-
+prefect work-pool create --type process [workpool_name]
+python create_deployment.py
 ```
 
-- Run with MAgeAI: most of the work done, is in the UI (basically create a streaming pipeline)
-    - dataloader: is kafka, edit the configs
-    - transformer
-    - data_exporter: s3 sink (make sure you pass your env vars)
+- **Run with MageAI**: 
+  - most of the work done, is in the UI (basically create a streaming pipeline)
+    - set configs in `mage_ai/ngx/io_config.yaml`
+    - dataloader: `mage_ai/ngx/data_loaders/kafka_run.yaml`, edit the configs
+    - transformer: `mage_ai/ngx/transformers/transform.py`
+    - data_exporter: `mage_ai/ngx/data_exporters/export_s3.yml`s3 sink (make sure you pass your env vars)
 ```
-mage start 
-
+mage start [project_name]
 ```
